@@ -3,14 +3,26 @@ import {puppyList} from './data.js'
 
 function App() {
   const [puppies, setPuppies] = useState(puppyList);
+  const [featPupId, setFeatPupId] = useState(null)
+  const featuredPup = puppies.find((pup)=> pup.id === featPupId)
 
   console.log("puppyList: ", puppyList);
+  console.log(featuredPup);
 
   return (
     <>
+      { featPupId && (
+        <article>
+          <h2>{featuredPup.name}</h2>
+          <ul>
+            <li>Age: {featuredPup.age}</li>
+            <li>Email: {featuredPup.email}</li>
+          </ul>
+        </article>
+        )} 
       { 
       puppies.map((puppy) => {
-      return <p key={puppy.id}>{puppy.name}</p>})
+      return <p onClick={()=>{setFeatPupId(puppy.id)}} key={puppy.id}>{puppy.name}</p>})
       }
     </>
   )
